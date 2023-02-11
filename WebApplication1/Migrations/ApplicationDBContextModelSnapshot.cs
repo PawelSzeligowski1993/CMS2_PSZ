@@ -48,13 +48,13 @@ namespace WebApplication1.Migrations
                     b.Property<int>("id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Advantages_List_id")
+                    b.Property<int>("advantages_id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Service_List_id")
+                    b.Property<int>("service_id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("User_id")
+                    b.Property<int>("user_id")
                         .HasColumnType("integer");
 
                     b.Property<string>("img_url")
@@ -74,20 +74,17 @@ namespace WebApplication1.Migrations
                     b.Property<int>("position")
                         .HasColumnType("integer");
 
-                    b.Property<int>("servicesid")
-                        .HasColumnType("integer");
-
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("id");
 
-                    b.HasIndex("Advantages_List_id");
+                    b.HasIndex("advantages_id");
 
-                    b.HasIndex("User_id");
+                    b.HasIndex("user_id");
 
-                    b.HasIndex("servicesid");
+                    b.HasIndex("service_id");
 
                     b.ToTable("page_sections");
                 });
@@ -178,19 +175,19 @@ namespace WebApplication1.Migrations
                 {
                     b.HasOne("WebApplication1.Models.DTO.AdvantagesDTO", "advantages")
                         .WithMany()
-                        .HasForeignKey("Advantages_List_id")
+                        .HasForeignKey("advantages_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebApplication1.Models.DTO.UsersDTO", "users")
                         .WithMany()
-                        .HasForeignKey("User_id")
+                        .HasForeignKey("user_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebApplication1.Models.DTO.ServicesDTO", "services")
                         .WithMany()
-                        .HasForeignKey("servicesid")
+                        .HasForeignKey("services_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

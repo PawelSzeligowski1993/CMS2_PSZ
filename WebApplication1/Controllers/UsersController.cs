@@ -99,7 +99,7 @@ namespace CMS_Projekt_API.Controllers
 
             string query = @"
                 insert into users(id,full_name,email,cms_role,password, created_date)
-                values (@id,@full_name,@email,@cms_role,@password,created_date)
+                values (@id,@full_name,@email,@cms_role,@password,@created_date)
             ";
 
             DataTable table = new DataTable();

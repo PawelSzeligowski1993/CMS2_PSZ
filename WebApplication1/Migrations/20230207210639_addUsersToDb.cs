@@ -84,29 +84,29 @@ namespace WebApplication1.Migrations
                     imgurl = table.Column<string>(name: "img_url", type: "text", nullable: false),
                     lastmoddate = table.Column<DateTime>(name: "last_mod_date", type: "timestamp with time zone", nullable: false),
                     lastmoduserid = table.Column<int>(name: "last_mod_user_id", type: "integer", nullable: false),
-                    AdvantagesListid = table.Column<int>(name: "Advantages_List_id", type: "integer", nullable: false),
-                    Userid = table.Column<int>(name: "User_id", type: "integer", nullable: false),
-                    ServiceListid = table.Column<int>(name: "Service_List_id", type: "integer", nullable: false),
-                    servicesid = table.Column<int>(type: "integer", nullable: false)
+                    advantagesid = table.Column<int>(name: "advantages_id", type: "integer", nullable: false),
+                    userid = table.Column<int>(name: "user_id", type: "integer", nullable: false),
+                    serviceid = table.Column<int>(name: "service_id", type: "integer", nullable: false)
+                    //servicesid = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_page_sections", x => x.id);
                     table.ForeignKey(
-                        name: "FK_page_sections_advantages_Advantages_List_id",
-                        column: x => x.AdvantagesListid,
+                        name: "FK_page_sections_advantages_advantages_id",
+                        column: x => x.advantagesid,
                         principalTable: "advantages",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_page_sections_services_servicesid",
-                        column: x => x.servicesid,
+                        name: "FK_page_sections_services_service_id",
+                        column: x => x.serviceid,
                         principalTable: "services",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_page_sections_users_User_id",
-                        column: x => x.Userid,
+                        name: "FK_page_sections_users_user_id",
+                        column: x => x.userid,
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);

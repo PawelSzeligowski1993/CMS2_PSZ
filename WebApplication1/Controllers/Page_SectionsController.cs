@@ -27,7 +27,7 @@ namespace CMS_Projekt_API.Controllers
                         position as ""position"",
                         title as ""title"",
                         img_url as ""img_url"",
-                        last_modification_date as ""last_modification_date"",
+                        last_mod_date as ""last_mod_date"",
                         last_mod_user_id as ""last_mod_user_id"",
                         advantages_id as ""advantages_id"",
                         user_id as ""user_id"",
@@ -66,7 +66,7 @@ namespace CMS_Projekt_API.Controllers
                         position as ""position"",
                         title as ""title"",
                         img_url as ""img_url"",
-                        last_modification_date as ""last_modification_date"",
+                        last_mod_date as ""last_mod_date"",
                         last_mod_user_id as ""last_mod_user_id"",
                         advantages_id as ""advantages_id"",
                         user_id as ""user_id"",
@@ -105,9 +105,9 @@ namespace CMS_Projekt_API.Controllers
 
             string query = @"
                 insert into page_Sections
-                (id,name,position,title,img_url,last_modification_date,last_mod_user_id,advantages_id,user_id,service_id)
+                (id,name,position,title,img_url,last_mod_date,last_mod_user_id,advantages_id,user_id,service_id)
                 values 
-                (@id,@name,@position,@title,@img_url,@last_modification_date,@last_mod_user_id,@advantages_id,@user_id,@service_id)
+                (@id,@name,@position,@title,@img_url,@last_mod_date,@last_mod_user_id,@advantages_id,@user_id,@service_id)
             ";
 
             DataTable table = new DataTable();
@@ -123,11 +123,11 @@ namespace CMS_Projekt_API.Controllers
                     myCommand.Parameters.AddWithValue("@position", pageSect.position);
                     myCommand.Parameters.AddWithValue("@title", pageSect.title);
                     myCommand.Parameters.AddWithValue("@img_url", pageSect.img_url);
-                    myCommand.Parameters.AddWithValue("@last_modification_date", pageSect.last_mod_date);
+                    myCommand.Parameters.AddWithValue("@last_mod_date", pageSect.last_mod_date);
                     myCommand.Parameters.AddWithValue("@last_mod_user_id", pageSect.last_mod_user_id);
-                    myCommand.Parameters.AddWithValue("@advantages_id", pageSect.Advantages_List_id);
-                    myCommand.Parameters.AddWithValue("@user_id", pageSect.User_id);
-                    myCommand.Parameters.AddWithValue("@service_id", pageSect.Service_List_id);
+                    myCommand.Parameters.AddWithValue("@advantages_id", pageSect.advantages_id);
+                    myCommand.Parameters.AddWithValue("@user_id", pageSect.user_id);
+                    myCommand.Parameters.AddWithValue("@service_id", pageSect.service_id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -153,7 +153,7 @@ namespace CMS_Projekt_API.Controllers
                 position = @position,
                 title = @title,
                 img_url = @img_url,
-                last_modification_date = @last_modification_date,
+                last_mod_date = @last_mod_date,
                 last_mod_user_id = @last_mod_user_id,
                 advantages_id = @advantages_id,
                 user_id = @user_id,
@@ -174,11 +174,11 @@ namespace CMS_Projekt_API.Controllers
                     myCommand.Parameters.AddWithValue("@position", pageSect.position);
                     myCommand.Parameters.AddWithValue("@title", pageSect.title);
                     myCommand.Parameters.AddWithValue("@img_url", pageSect.img_url);
-                    myCommand.Parameters.AddWithValue("@last_modification_date", pageSect.last_mod_date);
+                    myCommand.Parameters.AddWithValue("@last_mod_date", pageSect.last_mod_date);
                     myCommand.Parameters.AddWithValue("@last_mod_user_id", pageSect.last_mod_user_id);
-                    myCommand.Parameters.AddWithValue("@advantages_id", pageSect.Advantages_List_id);
-                    myCommand.Parameters.AddWithValue("@user_id", pageSect.User_id);
-                    myCommand.Parameters.AddWithValue("@service_id", pageSect.Service_List_id);
+                    myCommand.Parameters.AddWithValue("@advantages_id", pageSect.advantages_id);
+                    myCommand.Parameters.AddWithValue("@user_id", pageSect.user_id);
+                    myCommand.Parameters.AddWithValue("@service_id", pageSect.service_id);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 
