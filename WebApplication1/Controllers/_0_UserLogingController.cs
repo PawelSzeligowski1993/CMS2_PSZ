@@ -8,12 +8,12 @@ using WebApplication1.Repository.IRepository;
 namespace WebApplication1.Controllers
 {
     [Route("api/UsersAuth")]
-    public class _UserLogingController : Controller
+    public class _0_UserLogingController : Controller
     {
         private readonly IUserRepository _userRepo;
         protected APIResponse _response;
 
-        public _UserLogingController(IUserRepository userRepo)
+        public _0_UserLogingController(IUserRepository userRepo)
         {
             _userRepo = userRepo;
             this._response = new();

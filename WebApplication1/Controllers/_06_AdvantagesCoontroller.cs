@@ -11,10 +11,10 @@ namespace CMS_Projekt_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdvantagesCoontroller : ControllerBase
+    public class _06_AdvantagesCoontroller : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public AdvantagesCoontroller(IConfiguration configuration)
+        public _06_AdvantagesCoontroller(IConfiguration configuration)
         {
             _configuration = configuration;
         }

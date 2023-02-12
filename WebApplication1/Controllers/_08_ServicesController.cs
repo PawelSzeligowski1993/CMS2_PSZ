@@ -9,10 +9,10 @@ namespace CMS_Projekt_API.Controllers
     //-------------------Get all-------------------
     [Route("api/[controller]")]
     [ApiController]
-    public class ServicesController : ControllerBase
+    public class _08_ServicesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public ServicesController(IConfiguration configuration)
+        public _08_ServicesController(IConfiguration configuration)
         {
             _configuration = configuration;
         }

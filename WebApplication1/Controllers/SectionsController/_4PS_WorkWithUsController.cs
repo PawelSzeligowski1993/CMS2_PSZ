@@ -3,24 +3,26 @@ using Npgsql;
 using System.Data;
 using WebApplication1.Models.DTO;
 
-namespace CMS_Projekt_API.Controllers
+namespace WebApplication1.Controllers.SectionsController
 {
-
     [Route("api/[controller]")]
     [ApiController]
-    public class Page_SectionsController : ControllerBase
+    public class _4PS_WorkWithUsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public Page_SectionsController(IConfiguration configuration)
+        public _4PS_WorkWithUsController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        //------------------------------------------- GET ------------------------------------------------
-        //-------------------Get all-------------------
+
+        //------------------------------------------- GET by name WorkWithUs ------------------------------------------------
+        //-------------------Get all WorkWithUs -------------------
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult GetWorkWithUs()
         {
+            string name = "WorkWithUs";
+
             string query = @"
                 select id as ""id"",
                         name as ""name"",
@@ -32,45 +34,6 @@ namespace CMS_Projekt_API.Controllers
                         advantages_id as ""advantages_id"",
                         user_id as ""user_id"",
                         service_id as ""service_id""    
-                from page_sections
-            ";
-
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("SampleDBConnection");
-            NpgsqlDataReader myReader;
-            using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (NpgsqlCommand myCommand = new NpgsqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-
-                }
-            }
-
-            return new JsonResult(table);
-        }
-
-        //-------------------Get by name-------------------
-
-        [HttpGet("{name}")]
-        public JsonResult GeteByname1(string name)
-        {
-            string query = @"
-                 select id as ""id"",
-                        name as ""name"",
-                        position as ""position"",
-                        title as ""title"",
-                        img_url as ""img_url"",
-                        last_mod_date as ""last_mod_date"",
-                        last_mod_user_id as ""last_mod_user_id"",
-                        advantages_id as ""advantages_id"",
-                        user_id as ""user_id"",
-                        service_id as ""service_id""
                 from page_sections
                 where name=@name 
             ";
@@ -97,17 +60,60 @@ namespace CMS_Projekt_API.Controllers
         }
 
 
-        //------------------------------------------- POST ------------------------------------------------
+        //------------------- Get WorkWithUs by title -------------------
+
+        [HttpGet("{Title}")]
+        public JsonResult GetWorkWithUsByTitle(string title)
+        {
+            string name = "WorkWithUs";
+            string query = @"
+                 select id as ""id"",
+                        name as ""name"",
+                        position as ""position"",
+                        title as ""title"",
+                        img_url as ""img_url"",
+                        last_mod_date as ""last_mod_date"",
+                        last_mod_user_id as ""last_mod_user_id"",
+                        advantages_id as ""advantages_id"",
+                        user_id as ""user_id"",
+                        service_id as ""service_id""
+                from page_sections
+                where (name=@name and title=@title)
+            ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("SampleDBConnection");
+            NpgsqlDataReader myReader;
+            using (NpgsqlConnection myCon = new NpgsqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (NpgsqlCommand myCommand = new NpgsqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("@name", name);
+                    myCommand.Parameters.AddWithValue("@title", title);
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myCon.Close();
+
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        //------------------------------------------- POST by name WorkWithUs ------------------------------------------------
         [HttpPost]
-        public JsonResult Post(Page_SectionsDTO pageSect)
+        public JsonResult PostInWorkWithUs(Page_SectionsDTO pageSect)
         {
             int id = 0;
-
+            string name = "WorkWithUs";
             string query = @"
                 insert into page_Sections
                 (id,name,position,title,img_url,last_mod_date,last_mod_user_id,advantages_id,user_id,service_id)
                 values 
-                (@id,@name,@position,@title,@img_url,@last_mod_date,@last_mod_user_id,@advantages_id,@user_id,@service_id)
+                (@id,'WorkWithUs',@position,@title,@img_url,@last_mod_date,@last_mod_user_id,@advantages_id,@user_id,@service_id)
             ";
 
             DataTable table = new DataTable();
@@ -119,7 +125,7 @@ namespace CMS_Projekt_API.Controllers
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, myCon))
                 {
                     myCommand.Parameters.AddWithValue("@id", pageSect.id);
-                    myCommand.Parameters.AddWithValue("@name", pageSect.name);
+                    myCommand.Parameters.AddWithValue(name, pageSect.name);
                     myCommand.Parameters.AddWithValue("@position", pageSect.position);
                     myCommand.Parameters.AddWithValue("@title", pageSect.title);
                     myCommand.Parameters.AddWithValue("@img_url", pageSect.img_url);
@@ -138,19 +144,21 @@ namespace CMS_Projekt_API.Controllers
                 }
             }
 
-            return new JsonResult("Added Successfully");
+            return new JsonResult("New WorkWithUs Added Successfully");
         }
 
-        //------------------------------------------- PUT (update) ------------------------------------------------
+
+        //------------------------------------------- PUT (update) IN WorkWithUs ------------------------------------------------
 
         //@name,@position,@title,@img,@last_modification_date,@last_mod_user_id,@advantages_id,@user_id,@service_id
         [HttpPut]
-        public JsonResult Put(Page_SectionsDTO pageSect)
+        public JsonResult PutInWorkWithUs(Page_SectionsDTO pageSect)
         {
+            string name = "WorkWithUs";
             string query = @"
                 update page_Sections
-                set name = @name,
-                position = @position,
+                
+                set position = @position,
                 title = @title,
                 img_url = @img_url,
                 last_mod_date = @last_mod_date,
@@ -158,9 +166,9 @@ namespace CMS_Projekt_API.Controllers
                 advantages_id = @advantages_id,
                 user_id = @user_id,
                 service_id = @service_id
-                where id = @id 
+                where (id = @id and name = 'WorkWithUs') 
             ";
-           
+
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("SampleDBConnection");
             NpgsqlDataReader myReader;
@@ -170,7 +178,7 @@ namespace CMS_Projekt_API.Controllers
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, myCon))
                 {
                     myCommand.Parameters.AddWithValue("@id", pageSect.id);
-                    myCommand.Parameters.AddWithValue("@name", pageSect.name);
+                    myCommand.Parameters.AddWithValue(name, pageSect.name);
                     myCommand.Parameters.AddWithValue("@position", pageSect.position);
                     myCommand.Parameters.AddWithValue("@title", pageSect.title);
                     myCommand.Parameters.AddWithValue("@img_url", pageSect.img_url);
@@ -188,17 +196,18 @@ namespace CMS_Projekt_API.Controllers
                 }
             }
 
-            return new JsonResult("Updated Successfully");
+            return new JsonResult("WorkWithUs Updated Successfully");
         }
 
 
-        //---------------------------------------------- Delete by name ----------------------------------------------
+        //---------------------------------------------- Delete by Id and name(WorkWithUs) ----------------------------------------------
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
+            string name = "WorkWithUs";
             string query = @"
                 delete from page_sections
-                where id=@id 
+                where (id=@id and name=@name);
             ";
 
             DataTable table = new DataTable();
@@ -210,6 +219,7 @@ namespace CMS_Projekt_API.Controllers
                 using (NpgsqlCommand myCommand = new NpgsqlCommand(query, myCon))
                 {
                     myCommand.Parameters.AddWithValue("@id", id);
+                    myCommand.Parameters.AddWithValue("@name", name);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 
@@ -218,8 +228,8 @@ namespace CMS_Projekt_API.Controllers
 
                 }
             }
-
-            return new JsonResult("Deleted Successfully");
+            return new JsonResult("WorkWithUs Deleted Successfully");
         }
+
     }
 }
